@@ -1,0 +1,445 @@
+@use "../parts/common" as *;
+@use "../globals/index" as *;
+
+#container {
+  background: $cWhite;
+  position: relative;
+  z-index: 10;
+  transition: transform 0.5s, boxshadow 0.5s;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navHeight;
+  background: rgba($color: $cIndigo, $alpha: 0.95);
+  box-shadow: 10px 0 25px -10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  z-index: 100;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @extend .content-width;
+  }
+  &__nav {
+    @extend .flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+
+    display: none;
+    @include mq(lg) {
+      display: block;
+    }
+  }
+  &__ul {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+  }
+  &__li {
+    margin: 10px;
+
+    @include mq(md) {
+      margin-left: 30px;
+      margin-right: 0;
+    }
+    & > a {
+      color: $cBlack;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+  &__copyright {
+    margin-top: 30px;
+  }
+  & .logo {
+    font-size: 30px;
+    justify-content: center;
+    @include mq(md) {
+      justify-content: flex-start;
+      font-size: 35px;
+    }
+    @include mq(xl) {
+      font-size: 40px;
+    }
+  }
+}
+.hero {
+  @extend .pb-lg;
+}
+.about {
+  @extend .mb-lg;
+  @extend .pb-lg;
+  background: $cBgGray;
+  padding-top: 30px;
+
+  &__container {
+    @include mq(md) {
+      display: flex;
+      align-items: center;
+      width: 85%;
+      margin: 0 auto;
+      max-width: $contentMaxWidth;
+    }
+  }
+  &__top {
+    @extend .content-width;
+  }
+
+  &__texts {
+    @extend .content-width;
+    @include mq(md) {
+      margin-left: 30px;
+    }
+    &.inview {
+      & .about__discription::before {
+        @include animation($name: scaleX, $duration: 0.4s, $delay: 1s);
+      }
+    }
+  }
+  &__img {
+    height: 500px;
+    margin-bottom: 30px;
+
+    @include mq(md) {
+      flex-basis: 47%;
+    }
+    @include mq(lg) {
+      height: 600px;
+    }
+    & > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &__discription {
+    position: relative;
+
+    &::before {
+      display: none;
+      position: absolute;
+      content: "";
+      height: 1.2px;
+      width: 130px;
+      top: 50px;
+      left: -140px;
+      background: $cBlack;
+      transform: scaleX(0);
+      transform-origin: right;
+      @include mq(lg) {
+        display: block;
+      }
+    }
+    & span {
+      display: inline;
+    }
+  }
+}
+@keyframes scaleX {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.furnitures {
+  @extend .content-width;
+  @extend .mb-lg;
+
+  &__inner {
+    @extend .flex;
+    justify-content: space-between;
+  }
+
+  &__title {
+    // @extend .mb-sm;
+    @extend .font-lr;
+  }
+  &__sub-title {
+    @extend .font-md;
+    color: $cSubTitle;
+  }
+
+  &__item {
+    @extend .mb-sm;
+    @include mq(md) {
+      flex-basis: 49%;
+    }
+    @include mq(lg) {
+      margin-bottom: 30px;
+    }
+  }
+  &__img {
+    height: 460px;
+    width: 100%;
+    object-fit: cover;
+    @include mq(xl) {
+      height: 560px;
+    }
+  }
+}
+
+.slick {
+  @extend .mb-lg;
+  padding: 50px 0;
+  @include mq(lg) {
+    padding: 70px 0;
+  }
+  background: $cBgGray;
+
+  &__title {
+    @extend .content-width;
+  }
+  &__items {
+    @extend .content-width;
+  }
+  &__item {
+    & > img {
+      height: 530px;
+      width: 100%;
+      object-fit: cover;
+      // @include mq(xl) {
+      //   height: 530px;
+      // }
+    }
+    @include mq(sm) {
+      padding-right: 5px;
+    }
+  }
+}
+
+.menu {
+  &__title {
+    @extend .mb-sm;
+  }
+  &__container {
+    @extend .content-width;
+    @extend .mb-lg;
+
+    &.inview {
+      & .menu__contents:first-child::before {
+        @include animation($name: scaleX, $duration: 0.5s, $delay: 1.2s);
+      }
+      & .menu__contents:nth-child(n + 2)::before {
+        @include animation($name: scaleX, $duration: 0.5s, $delay: 1.2s);
+      }
+    }
+  }
+
+  &__contents {
+    @extend .mb-sm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    position: relative;
+
+    &:first-child {
+      &::before {
+        position: absolute;
+        content: "";
+        height: 1.5px;
+        width: 100%;
+        top: -20%;
+        background: $cBlack;
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+    }
+    &:nth-child(n + 2) {
+      &::before {
+        position: absolute;
+        content: "";
+        height: 1px;
+        width: 100%;
+        top: -20%;
+        background: $cSubTitle;
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+    }
+    @keyframes scaleX {
+      0% {
+        transform: scaleX(0);
+      }
+      100% {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__item {
+    & > p {
+      @extend .font-ss;
+      color: $cSubTitle;
+    }
+    & > span {
+      @extend .font-lr;
+    }
+  }
+
+  &__price {
+    display: flex;
+    flex-direction: column;
+    width: 32%;
+
+    & > dl {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & > dt {
+        @extend .font-md;
+      }
+      & > dd {
+        color: $cSubTitle;
+        @extend .font-ss;
+      }
+    }
+  }
+  &__description {
+    @extend .font-ss;
+    color: $cSubTitle;
+  }
+}
+
+.footer {
+  padding: 0px 0px 60px 0;
+  @extend .content-width;
+
+  &__nav {
+    @extend .flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  &__ul {
+    @extend .flex;
+    list-style: none;
+    padding: 0;
+  }
+  &__li {
+    margin: 10px;
+
+    @include mq(md) {
+      margin-left: 0;
+      margin-right: 30px;
+    }
+    & > a {
+      color: $cSubTitle;
+      text-decoration: none;
+    }
+  }
+  &__copyright {
+    margin-top: 30px;
+  }
+  & > .logo {
+    justify-content: center;
+    @include mq(md) {
+      justify-content: flex-start;
+    }
+  }
+}
+
+.logo {
+  z-index: 200;
+  letter-spacing: -0.05em;
+  display: flex;
+  font-size: 35px;
+
+  &__fuel {
+    text-decoration: none !important;
+  }
+  &__furniture {
+    text-decoration: none !important;
+    color: $cBlack;
+  }
+  &__img {
+    width: 0.7em;
+  }
+
+  &__fuel {
+    color: $cTomato;
+  }
+}
+.mobile-menu {
+  & .logo {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  &__map {
+    font-size: 11px;
+    width: 203px;
+  }
+}
+
+.side {
+  display: none;
+  position: fixed;
+  top: 70%;
+  transform: translateY(-50%);
+  transition: all 0.3 ease;
+
+  @include mq(xl) {
+    display: block;
+  }
+
+  & .tween-animate-title {
+    color: $cBlack;
+    text-decoration: none !important;
+    margin: 0 40px;
+    vertical-align: middle;
+    letter-spacing: 2px;
+  }
+
+  &.left {
+    left: -50px;
+
+    &.inview {
+      left: 50px;
+    }
+    & .side__inner {
+      transform-origin: top left;
+      transform: rotate(-90deg);
+    }
+  }
+  &.right {
+    right: -50px;
+
+    &.inview {
+      right: 50px;
+    }
+    & .side__inner {
+      transform-origin: top right;
+      transform: rotate(90deg);
+    }
+  }
+}
+.icon {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    width: 1em;
+    height: 1em;
+    content: "";
+    transform: translateY(-50%);
+    background-position: center;
+    background-repeat: none;
+    background-size: contain;
+  }
+  &.insta::before {
+    background-image: url(../images/insta.png);
+  }
+}
